@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <h2>Your Portfolio's Info</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Action</th>
+                    <th>Price</th>
+                    <th>Shares</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_history in user_history_query %}
+                    <tr>
+                        <td>{{ user_history['stock_name'] }}</td>
+                        <td>
+                            {{ user_history['type'] }}
+                        </td>
+                        <td>
+                            {{ user_history['type_price'] | usd }}
+                        </td>
+                        <td>
+                            {{ user_history['shares'] }}
+                        </td>
+                        <td>
+                            {{ user_history['time'] }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

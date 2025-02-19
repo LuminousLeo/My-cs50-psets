@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <h2>Your Portfolio's Info</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>Holding</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock_name in stock_names %}
+                    <tr>
+                        <td>{{ stock_name }}</td>
+                        <td>
+                            {% for share in stock_shares %}
+                                {% if stock_name in share %}
+                                    {{ share[stock_name] }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for stock_price in stock_prices %}
+                                {% if stock_name in stock_price %}
+                                    {{ stock_price[stock_name] | usd }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for holding in holdings %}
+                                {% if stock_name in holding %}
+                                    {{ holding[stock_name] | usd }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h5>Your Money: {{ user_cash | usd }}</h5>
+        <h5>Total: {{ total | usd }}</h5>
+    </div>
+{% endblock %}
